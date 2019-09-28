@@ -9,7 +9,7 @@ def prepare_csv(filename):
     artist, album, track, date
     artist and date being the actual important ones
     If arrow is failing to parse the date, use excel to format it all to
-    YYYY-MM-DD, and remove the 'M/D/YY H:mm' string from lines 19-21
+    YYYY-MM-DD, and remove the 'M/D/YY H:mm' string from lines 19-20
     """
     working_list = []
     all_dates = ['artist']
@@ -18,8 +18,7 @@ def prepare_csv(filename):
         for row in csv_file_reader:
             month = arrow.get(row['date'], 'M/D/YY H:mm').format('MMMM')
             year = arrow.get(row['date'], 'M/D/YY H:mm').format('YYYY')
-            date = arrow.get(row['date'], 'M/D/YY H:mm').format('D')
-            row['date'] = year + ' ' + month + ' ' + date
+            row['date'] = year + ' ' + month
             working_list.append(row)
             if row['date'] not in all_dates:
                 all_dates.append(row['date'])
