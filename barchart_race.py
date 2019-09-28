@@ -23,23 +23,9 @@ def prepare_csv(filename):
             if row['date'] not in all_dates:
                 all_dates.append(row['date'])
 
-    list_with_id = []
-    artist_id = 0
-    artist_id_hash = defaultdict(int)
-    for scrobble in working_list:
-        if artist_id_hash.get(scrobble['artist']):
-            scrobble['id'] = artist_id_hash[scrobble['artist']]
-            list_with_id.append(scrobble)
-            continue
-        else:
-            artist_id += 1
-            artist_id_hash[scrobble['artist']] = artist_id
-            scrobble['id'] = artist_id
-            list_with_id.append(scrobble)
-
     artist_play_count = defaultdict(int)
     d = defaultdict(dict)
-    for row in list_with_id:
+    for row in working_list:
         if d[row['artist']].get(row['date']):
             d[row['artist']][row['date']] += 1
         else:
